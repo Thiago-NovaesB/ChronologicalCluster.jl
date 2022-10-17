@@ -22,7 +22,7 @@ function search(N::Vector)
     return idx 
 end
 
-function simple_fix(K::Vector)
+function simple_fix!(K::Vector)
     for i in 1:length(K)-1
         if (K[i] == K[i+1]) && (i+1 != length(K))
             K[i+1] += 1
@@ -30,8 +30,8 @@ function simple_fix(K::Vector)
             K[i] -= 1
         end
     end
-    sort!(K)
-    return K
+    sort!(K) # useless?
+    nothing
 end
 
 function heuristic(N::Vector, K::Vector)
@@ -49,7 +49,8 @@ function heuristic(N::Vector, K::Vector)
         end
         K_new[i] = search(N[i1:i2]) + i1
     end
-    return simple_fix(K_new)
+    simple_fix!(K_new)
+    return K_new
 end
 
 function solve(N::Vector, K::Vector)
