@@ -13,7 +13,7 @@ function search(N::Vector)
     for k in 1:length(N)-1
         score = cost(N, k)
         if score >= old_score 
-            return idx
+            nothing
         else
             old_score = score
             idx = k
@@ -24,10 +24,13 @@ end
 
 function simple_fix(K::Vector)
     for i in 1:length(K)-1
-        if K[i] == K[i+1]
+        if (K[i] == K[i+1]) && (i+1 != length(K))
             K[i+1] += 1
+        elseif (K[i] == K[i+1])
+            K[i] -= 1
         end
     end
+    sort!(K)
     return K
 end
 
@@ -38,10 +41,10 @@ function heuristic(N::Vector, K::Vector)
             i1 = 1
             i2 = K[i+1]
         elseif i != length(K)
-            i1 = K[i-1] + 1
+            i1 = K[i-1]
             i2 = K[i+1]
         else
-            i1 = K[i-1] + 1
+            i1 = K[i-1]
             i2 = length(N)
         end
         K_new[i] = search(N[i1:i2]) + i1

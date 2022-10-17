@@ -1,8 +1,8 @@
 using Plots
 
 X = collect(1:400)
-N = vcat(zeros(100).+1, zeros(100).+7, zeros(100).+5, zeros(100).+2);
-# N = X.^4;
+# N = vcat(zeros(100).+1, zeros(100).+7, zeros(100).+5, zeros(100).+2);
+N = X.^8;
 K = [1,2,3];
 K = ChronologicalCluster.solve(N, K)
 
