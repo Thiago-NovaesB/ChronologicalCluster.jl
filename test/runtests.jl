@@ -2,13 +2,18 @@ using Plots
 
 X = collect(1:400)
 # N = vcat(zeros(100).+1, zeros(100).+7, zeros(100).+5, zeros(100).+2);
-N = X.^2;
-K = [1,2,3];
+# N = sin.(X)./X;
+N = X.^2/10000;
+N[200:400] .= 2
+N[1:15] .= -1
+N[100:200] .= -1
+K = [1,2,3,4,5];
 K = ChronologicalCluster.solve(N, K)
 
 plot(X,N)
 
 plot(X[1:K[1]],N[1:K[1]])
-plot!(X[K[1]+1:K[2]],N[K[1]+1:K[2]])
-plot!(X[K[2]+1:K[3]],N[K[2]+1:K[3]])
-plot!(X[K[3]+1:end],N[K[3]+1:end])
+for i in 1:length(K)-1
+    plot!(X[K[i]+1:K[i+1]],N[K[i]+1:K[i+1]])
+end
+plot!(X[K[length(K)]+1:end],N[K[length(K)]+1:end])
