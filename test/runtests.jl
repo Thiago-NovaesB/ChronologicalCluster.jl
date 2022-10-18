@@ -6,9 +6,9 @@ X = collect(1:400)
 N = X.^2/10000;
 N[200:400] .= 2
 N[1:15] .= -1
-N[100:200] .= -1
+N[100:200] .= 0
 K = [1,2,3,4,5];
-K = ChronologicalCluster.solve(N, K)
+K, plts = ChronologicalCluster.solve(N, K)
 
 plot(X,N)
 
