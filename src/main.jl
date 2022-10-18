@@ -22,18 +22,6 @@ function search(N::Vector) #grid search
     return idx 
 end
 
-function simple_fix!(K::Vector) # não evita todos os problemas
-    for i in 1:length(K)-1
-        if (K[i] == K[i+1]) && (i+1 != length(K))
-            K[i+1] += 1
-        elseif (K[i] == K[i+1])
-            K[i] -= 1
-        end
-    end
-    sort!(K) # useless?
-    nothing
-end
-
 function heuristic(N::Vector, K::Vector) # nao espera a iteração acabar para usar valores novos
     K_new = copy(K)
     for i in 1:length(K)
@@ -41,9 +29,7 @@ function heuristic(N::Vector, K::Vector) # nao espera a iteração acabar para u
         i2 = (i == length(K) ? length(N) : K_new[i+1])
 
         K_new[i] = search(N[i1:i2]) + i1
-        sort!(K_new) # use partial sort, useless?
     end
-    simple_fix!(K_new)
     return K_new
 end
 
